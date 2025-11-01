@@ -5,6 +5,7 @@ import OwnerWorkersList from './components/OwnerWorkersList';
 import Dashboard from './pages/Dashboard';
 import NearbyJobs from './pages/NearbyJobs';
 import RegisterWorker from './pages/RegisterWorker';
+import RegisterOwner from './pages/RegisterOwner';
 import SearchWorker from './pages/SearchWorker';
 
 const App = () => (
@@ -13,6 +14,7 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/register" element={<RegisterWorker />} />
+        <Route path="/register-owner" element={<RegisterOwner />} />
         <Route path="/search" element={<SearchWorker />} />
         <Route path="/jobs" element={<NearbyJobs />} />
         <Route path="/ownerworkerslist" element={<OwnerWorkersList />} />
