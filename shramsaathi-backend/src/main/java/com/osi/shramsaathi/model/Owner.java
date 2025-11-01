@@ -1,13 +1,9 @@
-
-
 package com.osi.shramsaathi.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,21 +14,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JobPosting {
+public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String description;
-    private String workType;
-    private String district;
-    private String contactPerson;
+    private String name;
     private String phone;
+    private String email;
+    private String password;
 
-    // ✅ This must be inside the class, before the closing brace
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private Owner owner;
+    private String companyName;
+    private String district;
+    private String mandal;
+    private Integer pincode;
 }

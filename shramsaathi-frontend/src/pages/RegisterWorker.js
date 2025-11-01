@@ -1,7 +1,9 @@
-// src/pages/RegisterWorker.js
-import React, { useState } from 'react';
+
+
+
 import axios from 'axios';
-import './RegisterWorker.css'; // ✅ Importing CSS
+import { useState } from 'react';
+import './RegisterWorker.css';
 
 const RegisterWorker = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +13,9 @@ const RegisterWorker = () => {
     workType: '',
     district: '',
     mandal: '',
-    pincode: ''
+    pincode: '',
+    age: '',
+    experience: ''
   });
 
   const [status, setStatus] = useState('');
@@ -35,7 +39,9 @@ const RegisterWorker = () => {
         workType: '',
         district: '',
         mandal: '',
-        pincode: ''
+        pincode: '',
+        age: '',
+        experience: ''
       });
     } catch (error) {
       setStatus('❌ Registration failed. Check backend or network.');
@@ -46,10 +52,11 @@ const RegisterWorker = () => {
     <div className="register-container">
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Register Worker</h2>
-        {["name", "phone", "address", "workType", "district", "mandal", "pincode"].map((field) => (
+        {["name", "phone", "address", "workType", "district", "mandal", "pincode", "age", "experience"].map((field) => (
           <input
             key={field}
             name={field}
+            type={field === "age" || field === "experience" ? "number" : "text"}
             value={formData[field]}
             onChange={handleChange}
             placeholder={field.charAt(0).toUpperCase() + field.slice(1)}

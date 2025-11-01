@@ -1,0 +1,116 @@
+.owner-workers-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f9fafc;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+.owner-workers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.owner-workers-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+}
+
+.filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.filters select,
+.filters input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s ease-in-out;
+}
+
+.filters select:focus,
+.filters input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.workers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.worker-card {
+  background: linear-gradient(145deg, #ffffff, #f0f4ff);
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.worker-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.worker-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+}
+
+.worker-details {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.worker-details span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.no-workers {
+  text-align: center;
+  color: #777;
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .owner-workers-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.apply-filter-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.apply-filter-btn:hover {
+  background-color: #0056b3;
+}

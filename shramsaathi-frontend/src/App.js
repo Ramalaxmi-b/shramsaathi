@@ -1,11 +1,11 @@
 // src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import Layout from './components/Layout';
+import OwnerWorkersList from './components/OwnerWorkersList';
 import Dashboard from './pages/Dashboard';
+import NearbyJobs from './pages/NearbyJobs';
 import RegisterWorker from './pages/RegisterWorker';
 import SearchWorker from './pages/SearchWorker';
-import Layout from './components/Layout';
-import NearbyJobs from './pages/NearbyJobs';
 
 const App = () => (
   <Router>
@@ -15,6 +15,7 @@ const App = () => (
         <Route path="/register" element={<RegisterWorker />} />
         <Route path="/search" element={<SearchWorker />} />
         <Route path="/jobs" element={<NearbyJobs />} />
+        <Route path="/ownerworkerslist" element={<OwnerWorkersList />} />
       </Routes>
     </Layout>
   </Router>

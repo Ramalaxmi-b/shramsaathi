@@ -1,7 +1,16 @@
+
+
+
 package com.osi.shramsaathi.dto;
 
-import jakarta.validation.constraints.*;
-import lombok.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -29,7 +38,12 @@ public class UserRequest {
 
     @NotNull(message = "Pincode is required")
     private Integer pincode;
+
+    @Min(value = 18, message = "Age must be at least 18")
+    @Max(value = 80, message = "Age cannot exceed 80")
+    private Integer age;
+
+    @Min(value = 0, message = "Experience must be at least 0 years")
+    @Max(value = 60, message = "Experience cannot exceed 60 years")
+    private Integer experience;
 }
-// This is the UserRequest class, which is used to create a new user.
-// It uses Lombok to generate the getters, setters, constructor, and builder methods.
-// It also uses JSR 380 (Bean Validation) annotations to validate the input fields. 

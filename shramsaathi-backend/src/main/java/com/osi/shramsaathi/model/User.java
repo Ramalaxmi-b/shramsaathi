@@ -1,8 +1,21 @@
+
+
+
 package com.osi.shramsaathi.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
@@ -26,7 +39,7 @@ public class User {
     private String address;
 
     @NotBlank(message = "Work type is required")
-    private String workType; // e.g., electrician, plumber
+    private String workType;
 
     @NotBlank(message = "District is required")
     private String district;
@@ -37,7 +50,14 @@ public class User {
     @NotNull(message = "Pincode is required")
     private Integer pincode;
 
-    // ✅ Use @Builder.Default so Lombok keeps the default value when using .builder()
+    @Min(value = 18, message = "Age must be at least 18")
+    @Max(value = 80, message = "Age cannot exceed 80")
+    private Integer age;
+
+    @Min(value = 0, message = "Experience must be at least 0 years")
+    @Max(value = 60, message = "Experience cannot exceed 60 years")
+    private Integer experience;
+
     @Builder.Default
     private Boolean registered = true;
 }

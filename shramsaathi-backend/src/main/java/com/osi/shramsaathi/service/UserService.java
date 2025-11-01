@@ -1,29 +1,23 @@
-/*package com.osi.shramsaathi.service;
 
-import com.osi.shramsaathi.model.User;
-import java.util.List;
 
-public interface UserService {
-    User register(User user);
-    List<User> getAllUsers();
-    List<User> findByWorkTypeAndDistrict(String workType, String district);
-}
-*/
 
 package com.osi.shramsaathi.service;
 
+import java.util.List;
+
 import com.osi.shramsaathi.dto.UserRequest;
 import com.osi.shramsaathi.dto.UserResponse;
-import java.util.List;
 
 public interface UserService {
 
-    /** Registers a new user from the request data */
+    /** Register a new worker */
     UserResponse register(UserRequest request);
 
-    /** Fetches all registered users */
+    /** Get all registered workers */
     List<UserResponse> getAllUsers();
 
-    /** Searches users by work type and district */
-    List<UserResponse> findByWorkTypeAndDistrict(String workType, String district);
+    /** Search workers by filters */
+    List<UserResponse> filterUsers(String workType, String district,
+                                   Integer minAge, Integer maxAge,
+                                   Integer minExperience, Integer maxExperience);
 }
