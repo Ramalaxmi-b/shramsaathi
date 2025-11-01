@@ -28,9 +28,6 @@ const Layout = ({ children }) => {
       <div className="layout-body">
         <Header pageTitle={pageTitle} />
         <main className="layout-content">
-          <div className="page-header">
-            <h1 className="page-title">{pageTitle}</h1>
-          </div>
           {children}
         </main>
       </div>

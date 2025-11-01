@@ -88,14 +88,18 @@ import com.osi.shramsaathi.dto.UserResponse;
 import com.osi.shramsaathi.model.User;
 import com.osi.shramsaathi.repository.UserRepository;
 import com.osi.shramsaathi.service.UserService;
+import com.osi.shramsaathi.service.GeocodingService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final GeocodingService geocodingService;
+    private final ApplicationEventPublisher eventPublisher;
 
     /** Register a new worker */
     @Override
@@ -113,7 +117,26 @@ public class UserServiceImpl implements UserService {
                 .registered(true)
                 .build();
 
+        // Use the GeocodingService to get coordinates
+        GeocodingService.GeoLocation location = geocodingService.geocodeAddress(
+            user.getAddress(),
+            user.getDistrict(),
+            user.getMandal(),
+            user.getPincode()
+        );
+
+        if (location != null) {
+            user.setLatitude(location.latitude());
+            user.setLongitude(location.longitude());
+        }
+
         User savedUser = userRepository.save(user);
+        
+        // Publish event for real-time updates if coordinates are available
+        if (user.getLatitude() != null && user.getLongitude() != null) {
+            eventPublisher.publishEvent(new UserLocationUpdateEvent(savedUser));
+        }
+        
         return toResponse(savedUser);
     }
 
@@ -151,6 +174,8 @@ public class UserServiceImpl implements UserService {
                 .age(user.getAge())
                 .experience(user.getExperience())
                 .registered(user.getRegistered())
+                .latitude(user.getLatitude())
+                .longitude(user.getLongitude())
                 .build();
     }
 }

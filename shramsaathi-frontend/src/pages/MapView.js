@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-cluster';
+import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
+import '@changey/react-leaflet-markercluster/dist/styles.min.css';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import axios from 'axios';
@@ -59,19 +60,25 @@ function MapView() {
       onError: (error) => {
         console.error('WebSocket error:', error);
       },
-      // Heartbeat every 30s/20s to keep connection alive
+      reconnectDelay: 5000,
       heartbeatIncoming: 30000,
-      heartbeatOutgoing: 20000,
+      heartbeatOutgoing: 20000
     });
 
-    // Connect
-    client.activate();
-    stompClient.current = client;
+    try {
+      client.activate();
+      stompClient.current = client;
+    } catch (error) {
+      console.error('Error activating WebSocket:', error);
+    }
 
-    // Cleanup on unmount
     return () => {
-      if (client.active) {
-        client.deactivate();
+      if (stompClient.current?.active) {
+        try {
+          stompClient.current.deactivate();
+        } catch (error) {
+          console.error('Error disconnecting WebSocket:', error);
+        }
       }
     };
   }, [handleWorkerUpdate]);
@@ -108,38 +115,41 @@ function MapView() {
         center={DEFAULT_CENTER}
         zoom={5}
         className="map"
-        whenReady={(map) => {
+        ref={mapRef}
+        whenCreated={(map) => {
           mapRef.current = map;
           handleMapMove();
         }}
-        whenMoved={handleMapMove}
+        onMoveEnd={handleMapMove}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
-        <MarkerClusterGroup>
-          {workers.map((worker) => (
-            <Marker
-              key={worker.id}
-              position={[worker.latitude, worker.longitude]}
-              title={worker.name}
-            >
-              <Popup>
-                <div className="worker-popup">
-                  <h3>{worker.name}</h3>
-                  <p><strong>Work Type:</strong> {worker.workType}</p>
-                  <p><strong>District:</strong> {worker.district}</p>
-                  <p><strong>Mandal:</strong> {worker.mandal}</p>
-                  {worker.experience && (
-                    <p><strong>Experience:</strong> {worker.experience} years</p>
-                  )}
-                </div>
-              </Popup>
-            </Marker>
-          ))}
-        </MarkerClusterGroup>
+        {workers.length > 0 && (
+          <MarkerClusterGroup chunkedLoading>
+            {workers.map((worker) => (
+              <Marker
+                key={worker.id}
+                position={[worker.latitude, worker.longitude]}
+                title={worker.name}
+              >
+                <Popup>
+                  <div className="worker-popup">
+                    <h3>{worker.name}</h3>
+                    <p><strong>Work Type:</strong> {worker.workType}</p>
+                    <p><strong>District:</strong> {worker.district}</p>
+                    <p><strong>Mandal:</strong> {worker.mandal}</p>
+                    {worker.experience && (
+                      <p><strong>Experience:</strong> {worker.experience} years</p>
+                    )}
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MarkerClusterGroup>
+        )}
       </MapContainer>
     </div>
   );

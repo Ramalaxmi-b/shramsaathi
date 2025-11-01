@@ -60,4 +60,8 @@ public class User {
 
     @Builder.Default
     private Boolean registered = true;
+
+    // Optional geographic coordinates for map features
+    private Double latitude;
+    private Double longitude;
 }

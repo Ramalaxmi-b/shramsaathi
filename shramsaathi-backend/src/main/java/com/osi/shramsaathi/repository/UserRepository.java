@@ -40,4 +40,18 @@ public interface UserRepository extends JpaRepository<User, Long> {
             @Param("minExperience") Integer minExperience,
             @Param("maxExperience") Integer maxExperience
     );
+
+    @Query("""
+        SELECT u FROM User u
+        WHERE u.latitude IS NOT NULL
+          AND u.longitude IS NOT NULL
+          AND (6371 * acos(cos(radians(:lat)) * cos(radians(u.latitude))
+          * cos(radians(u.longitude) - radians(:lon))
+          + sin(radians(:lat)) * sin(radians(u.latitude)))) <= :radius
+        """)
+    List<User> findUsersWithinRadius(
+            @Param("lat") double latitude,
+            @Param("lon") double longitude,
+            @Param("radius") double radiusInKm
+    );
 }

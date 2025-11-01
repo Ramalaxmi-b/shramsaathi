@@ -25,4 +25,6 @@ public class UserResponse {
     private Integer age;
     private Integer experience;
     private Boolean registered;
+    private Double latitude;
+    private Double longitude;
 }
