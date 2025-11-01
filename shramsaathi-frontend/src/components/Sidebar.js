@@ -7,11 +7,13 @@ const Sidebar = () => {
 
   const menuItems = [
     { path: '/', icon: '📊', label: 'Dashboard' },
+    { path: '/map', icon: '🗺️', label: 'Map' },
     { path: '/register', icon: '👷', label: 'Register Worker' },
     { path: '/register-owner', icon: '💼', label: 'Register Owner' },
     { path: '/search', icon: '🔍', label: 'Search Worker' },
     { path: '/jobs', icon: '📝', label: 'Nearby Jobs' },
-    { path: '/ownerworkerslist', icon: '👥', label: 'Owner View' }
+    { path: '/ownerworkerslist', icon: '👥', label: 'Owner View' },
+    { path: '/faq', icon: '❓', label: 'FAQ' }
   ];
 
   return (
