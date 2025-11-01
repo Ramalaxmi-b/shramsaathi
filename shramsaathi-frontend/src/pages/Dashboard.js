@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import './Dashboard.css';
 
 const AnimatedNumber = ({ value, duration = 800 }) => {
@@ -32,7 +32,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get('http://localhost:8083/api/users');
+        const res = await api.get('/api/users');
         const users = Array.isArray(res.data) ? res.data : [];
 
         const uniqueDistricts = new Set(users.map(user => user.district).filter(Boolean));
