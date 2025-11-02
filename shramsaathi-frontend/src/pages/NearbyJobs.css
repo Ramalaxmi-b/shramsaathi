@@ -1,92 +1,208 @@
-/* src/pages/NearbyJobs.css */
+
 
 .nearby-jobs-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #fdfdfd;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  background: #f9fafb;
+  min-height: 100vh;
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 1.5rem;
   text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.6rem;
+  font-weight: bold;
 }
 
 .filters {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.input {
-  padding: 0.6rem 1rem;
-  border: 1px solid #ccc;
+.filters input,
+.apply-filter-btn {
+  padding: 8px 10px;
   border-radius: 8px;
-  font-size: 1rem;
-  flex: 1 1 200px;
+  border: 1px solid #ccc;
 }
 
-.search-button {
-  padding: 0.6rem 1.2rem;
-  background-color: #2c7be5;
+.apply-filter-btn {
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: 0.2s;
 }
 
-.search-button:hover {
-  background-color: #1a5ec8;
+.apply-filter-btn:hover {
+  background-color: #0056b3;
 }
 
-.job-list {
+.owners-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-.job-card {
-  padding: 1.5rem;
+.owner-card {
+  background: white;
   border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.2s;
 }
 
-.job-card:hover {
-  transform: translateY(-5px);
+.owner-card:hover {
+  transform: translateY(-4px);
 }
 
-.job-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
+.owner-header h3 {
+  color: #007bff;
+  margin-bottom: 5px;
 }
 
-.job-description {
-  font-size: 0.95rem;
-  margin-bottom: 0.8rem;
-  color: #555;
-}
-
-.job-details p {
-  margin: 0.3rem 0;
+.owner-name {
+  color: #666;
   font-size: 0.9rem;
-  color: #444;
 }
 
-.no-results {
-  text-align: center;
-  color: #888;
+.owner-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 8px;
+}
+
+.owner-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.phone-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #007bff;
+  font-size: 0.9rem;
+}
+
+.phone-icon {
+  color: #007bff;
+}
+
+.rating-section {
+  display: flex;
+  gap: 4px;
+}
+
+.star-icon {
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-icon.filled {
+  color: #f6b93b;
+}
+
+.chat-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.chat-icon {
   font-size: 1rem;
+}
+
+/* Chat Box */
+.chat-box {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 250px;
+}
+
+.chat-message {
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  max-width: 80%;
+}
+
+.chat-message.worker {
+  background: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.chat-message.owner {
+  background: #eee;
+  align-self: flex-start;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.chat-input button {
+  margin-left: 5px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
 }
